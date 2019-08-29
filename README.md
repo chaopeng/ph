@@ -4,6 +4,17 @@
 
 I am very not good at shell script. Early this year, I move my daily development shell from zsh to fish. It takes me times to move my prompt setting. So why not do it on Go. It also a good small project to learn a new language.
 
+It looks pretty good now and works for tmux and shell.
+
+git status clean:<br>
+<img src="screenshot/git-1.png">
+
+git status dirty:<br>
+<img src="screenshot/git-2.png">
+
+tmux:<br>
+<img src="screenshot/tmux.png">
+
 ## Install
 
 1. Install [nerd fonts](https://github.com/ryanoasis/nerd-fonts), I am using `Hack Nerf fonts`, not all fonts works good on my environment.
