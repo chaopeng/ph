@@ -2,7 +2,7 @@
 
 ## Background
 
-I am very not good at shell script. Early this year, I move my daily development shell from zsh to fish. It takes me times to move my prompt setting. So why not do it on Go. It also a good small project to learn a new language.
+I am very not good at shell script. Early this year, I moved my daily development shell from zsh to fish. It took me times to move my prompt setting. So why not do it on Go. It also a good small project to learn a new language.
 
 It looks pretty good now and works for tmux and shell.
 
