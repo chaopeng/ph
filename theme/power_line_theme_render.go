@@ -2,7 +2,6 @@
 package theme
 
 import (
-	"runtime"
 	"strings"
 
 	"github.com/chaopeng/ph/context"
@@ -100,10 +99,10 @@ func (r *PowerlineThemeRender) Render() string {
 	r.powerlineArrowRender(bg, r.Ctx.Conf.ColorScheme.Os.Bg, r.Spliter, sb)
 	bg = r.Ctx.Conf.ColorScheme.Os.Bg
 
-	if r.Ctx.Os == "linux" {
-		r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Os.Fg, " Linux ", sb)
-	} else if runtime.GOOS == "darwin" {
+	if r.Ctx.Os == "darwin" {
 		r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Os.Fg, " Mac ", sb)
+	} else {
+		r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Os.Fg, " "+r.Ctx.Os+" ", sb)
 	}
 
 	// short pwd

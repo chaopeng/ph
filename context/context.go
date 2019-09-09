@@ -104,7 +104,10 @@ func (c *Context) ReadCompleteInfo() {
 		c.VcsInfo = &vcs.VcsInfo{}
 	}
 
-	c.Os = runtime.GOOS
+	c.Os = os.Getenv("PH_OS")
+	if len(c.Os) == 0 {
+		c.Os = runtime.GOOS
+	}
 
 	if os.Getenv("SSH_CLIENT") != "" {
 		c.Ssh = true
