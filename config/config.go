@@ -29,7 +29,8 @@ type Scheme struct {
 }
 
 type Config struct {
-	Includes      []string          `yaml:"Includes"`
+	VCSSkip       []string          `yaml:"VCSSkip"`
+	VCSIncludes   []string          `yaml:"VCSIncludes"`
 	PathShorterns map[string]string `yaml:"PathShorterns"`
 	Theme         string            `yaml:"Theme"`
 	ColorScheme   Scheme            `yaml:"Scheme"`
