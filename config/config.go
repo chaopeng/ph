@@ -9,30 +9,20 @@ import (
 )
 
 type Color struct {
-	Fg string `yaml:"Fg"`
-	Bg string `yaml:"Bg"`
+	Fg string `yaml:"fg"`
+	Bg string `yaml:"bg"`
 }
 
-type Scheme struct {
-	Time        Color `yaml:"Time"`
-	StatusGood  Color `yaml:"StatusGood"`
-	StatusBad   Color `yaml:"StatusBad"`
-	Status      Color `yaml:"Status"`
-	Ssh         Color `yaml:"Ssh"`
-	Os          Color `yaml:"Os"`
-	Pwd         Color `yaml:"Pwd"`
-	PrePwd      Color `yaml:"PrePwd"`
-	DangerZone  Color `yaml:"DangerZone"`
-	StatusNone  Color `yaml:"StatusNone"`
-	StatusClean Color `yaml:"StatusClean"`
-	StatusDirty Color `yaml:"StatusDirty"`
+type ColorTheme struct {
+	Tmux   string `yaml:"tmux"`
+	Prompt string `yaml:"prompt"`
 }
 
 type Config struct {
-	VCS           map[string][]string `yaml:"VCS"`
-	PathShorterns map[string]string   `yaml:"PathShorterns"`
-	Theme         string              `yaml:"Theme"`
-	ColorScheme   Scheme              `yaml:"Scheme"`
+	VCS           map[string][]string `yaml:"vcs"`
+	PathShorterns map[string]string   `yaml:"path_shortern"`
+	Theme         ColorTheme          `yaml:"theme"`
+	Scheme        map[string]Color    `yaml:"scheme"`
 }
 
 func ReadConfig() *Config {
@@ -73,64 +63,72 @@ func setDefaultValue(field *string, defaultValue string) {
 }
 
 func (conf *Config) defaultConfig() {
-	setDefaultValue(&conf.Theme, "powerline")
+	if conf.VCS == nil {
+		conf.VCS = map[string][]string{}
+	}
 
-	scheme := &conf.ColorScheme
-	setDefaultValue(&scheme.Time.Fg, "15")
-	setDefaultValue(&scheme.StatusGood.Fg, "2")
-	setDefaultValue(&scheme.StatusBad.Fg, "1")
-	setDefaultValue(&scheme.Status.Fg, "1")
-	setDefaultValue(&scheme.Status.Bg, "15")
-	setDefaultValue(&scheme.Ssh.Fg, "252")
-	setDefaultValue(&scheme.Ssh.Bg, "240")
-	setDefaultValue(&scheme.Os.Fg, "15")
-	setDefaultValue(&scheme.Os.Bg, "33")
-	setDefaultValue(&scheme.Pwd.Fg, "15")
-	setDefaultValue(&scheme.Pwd.Bg, "240")
-	setDefaultValue(&scheme.PrePwd.Fg, "252")
-	setDefaultValue(&scheme.DangerZone.Bg, "124")
-	setDefaultValue(&scheme.StatusNone.Fg, "238")
-	setDefaultValue(&scheme.StatusNone.Bg, "3")
-	setDefaultValue(&scheme.StatusClean.Fg, "238")
-	setDefaultValue(&scheme.StatusClean.Bg, "2")
-	setDefaultValue(&scheme.StatusDirty.Fg, "15")
-	setDefaultValue(&scheme.StatusDirty.Bg, "1")
+	if conf.PathShorterns == nil {
+		conf.PathShorterns = map[string]string{}
+	}
+
+	setDefaultValue(&conf.Theme.Tmux, "powerline")
+	setDefaultValue(&conf.Theme.Prompt, "powerline")
+
+	defaultScheme := map[string]Color{
+		// simple theme
+		"simple/time": Color{
+			Fg: "15",
+		},
+		"simple/good": Color{
+			Fg: "2",
+		},
+		"simple/bad": Color{
+			Fg: "1",
+		},
+		// powerline theme
+		"power/status": Color{
+			Fg: "1",
+			Bg: "15",
+		},
+		"power/ssh": Color{
+			Fg: "252",
+			Bg: "240",
+		},
+		"power/os": Color{
+			Fg: "15",
+			Bg: "33",
+		},
+		"power/pwd": Color{
+			Fg: "15",
+			Bg: "240",
+		},
+		"power/pre_pwd": Color{
+			Fg: "252",
+		},
+		"power/danger_zone": Color{
+			Bg: "124",
+		},
+		"power/vcs_status_none": Color{
+			Fg: "238",
+			Bg: "3",
+		},
+		"power/vcs_status_clean": Color{
+			Fg: "238",
+			Bg: "2",
+		},
+		"power/vcs_status_dirty": Color{
+			Fg: "15",
+			Bg: "1",
+		},
+	}
+
+	if conf.Scheme == nil {
+		conf.Scheme = map[string]Color{}
+	}
+
+	for k, v := range defaultScheme {
+		if _, ok := conf.Scheme[k]; !ok {
+			conf.Scheme[k] = v
+		}
+	}
 }
-
-/*
-# Default
-Scheme:
- # simple theme
- Time:
-  Fg: 15
- StatusGood:
-  Fg: 2
- StatusBad:
-  Fg: 1
- # powerline theme
- Status:
-  Fg: 1
-  Bg: 15
- Ssh:
-  Fg: 252
-  Bg: 240
- Os:
-  Fg: 15
-  Bg: 33
- Pwd:
-  Fg: 15
-  Bg: 240
- PrePwd:
-  Fg: 252
- DangerZone:
-  Bg: 124
- StatusNone:
-  Fg: 238
-  Bg: 3
- StatusClean:
-  Fg: 238
-  Bg: 2
- StatusDirty:
-  Fg: 15
-  Bg: 1
-*/

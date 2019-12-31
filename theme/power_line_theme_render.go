@@ -4,6 +4,7 @@ package theme
 import (
 	"strings"
 
+	"github.com/chaopeng/ph/config"
 	"github.com/chaopeng/ph/context"
 	"github.com/chaopeng/ph/vcs"
 
@@ -77,57 +78,81 @@ func (r *PowerlineThemeRender) powerlineArrowRender(preBg string, bg string, sym
 	sb.WriteString(symbol)
 }
 
+type powerlineScheme struct {
+	status         config.Color
+	ssh            config.Color
+	os             config.Color
+	pwd            config.Color
+	prePWD         config.Color
+	dangerZone     config.Color
+	vcsStatusNone  config.Color
+	vcsStatusClean config.Color
+	vcsStatusDirty config.Color
+}
+
 // last status > ssh > os > short_pwd > vcs > branch/client > clean >
 func (r *PowerlineThemeRender) Render() string {
+	scheme := powerlineScheme{
+		status:         r.Ctx.Conf.Scheme["power/status"],
+		ssh:            r.Ctx.Conf.Scheme["power/ssh"],
+		os:             r.Ctx.Conf.Scheme["power/os"],
+		pwd:            r.Ctx.Conf.Scheme["power/pwd"],
+		prePWD:         r.Ctx.Conf.Scheme["power/pre_pwd"],
+		dangerZone:     r.Ctx.Conf.Scheme["power/danger_zone"],
+		vcsStatusNone:  r.Ctx.Conf.Scheme["power/vcs_status_none"],
+		vcsStatusClean: r.Ctx.Conf.Scheme["power/vcs_status_clean"],
+		vcsStatusDirty: r.Ctx.Conf.Scheme["power/vcs_status_dirty"],
+	}
+
 	sb := &strings.Builder{}
 	bg := ""
 	// last status
 	if r.NeedStatus {
 		if r.LastStatus != "0" {
-			bg = r.Ctx.Conf.ColorScheme.Status.Bg
-			r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Status.Fg, " ! ", sb)
+			bg = scheme.status.Bg
+			r.powerlineRender(bg, scheme.status.Fg, " ! ", sb)
 		}
 	}
 
 	if r.NeedSsh && r.Ctx.Ssh {
-		r.powerlineArrowRender(bg, r.Ctx.Conf.ColorScheme.Ssh.Bg, r.Spliter, sb)
-		bg = r.Ctx.Conf.ColorScheme.Ssh.Bg
-		r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Ssh.Fg, " "+nfLock+" ", sb)
+		r.powerlineArrowRender(bg, scheme.ssh.Bg, r.Spliter, sb)
+		bg = scheme.ssh.Bg
+		r.powerlineRender(bg, scheme.ssh.Fg, " "+nfLock+" ", sb)
 	}
 
 	// OS
-	r.powerlineArrowRender(bg, r.Ctx.Conf.ColorScheme.Os.Bg, r.Spliter, sb)
-	bg = r.Ctx.Conf.ColorScheme.Os.Bg
+	r.powerlineArrowRender(bg, scheme.os.Bg, r.Spliter, sb)
+	bg = scheme.os.Bg
 
 	if r.Ctx.Os == "darwin" {
-		r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Os.Fg, " Mac ", sb)
+		r.powerlineRender(bg, scheme.os.Fg, " Mac ", sb)
 	} else {
-		r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Os.Fg, " "+r.Ctx.Os+" ", sb)
+		r.powerlineRender(bg, scheme.os.Fg, " "+r.Ctx.Os+" ", sb)
 	}
 
 	// short pwd
 	preBg := bg
-	bg = r.Ctx.Conf.ColorScheme.Pwd.Bg
+	bg = scheme.pwd.Bg
 	if r.Ctx.PathInfo.DangerZone {
-		bg = r.Ctx.Conf.ColorScheme.DangerZone.Bg
+		bg = scheme.dangerZone.Bg
 	}
 	r.powerlineArrowRender(preBg, bg, r.Spliter, sb)
-	r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.PrePwd.Fg, " "+r.Ctx.PathInfo.ShorternPrefix, sb)
-	r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Pwd.Fg, r.Ctx.PathInfo.BaseDir+" ", sb)
+	r.powerlineRender(bg, scheme.prePWD.Fg, " "+r.Ctx.PathInfo.ShorternPrefix, sb)
+	r.powerlineRender(bg, scheme.pwd.Fg, r.Ctx.PathInfo.BaseDir+" ", sb)
 
 	// vcs
 	if r.Ctx.VCSInfo.RepoType != "" {
 		preBg = bg
 		fg := ""
 		if r.Ctx.VCSInfo.Status == vcs.StatusNone {
-			bg = r.Ctx.Conf.ColorScheme.StatusNone.Bg
-			fg = r.Ctx.Conf.ColorScheme.StatusNone.Fg
+			bg = scheme.vcsStatusNone.Bg
+			fg = scheme.vcsStatusNone.Fg
 		} else if r.Ctx.VCSInfo.Status == vcs.StatusClean {
-			bg = r.Ctx.Conf.ColorScheme.StatusClean.Bg
-			fg = r.Ctx.Conf.ColorScheme.StatusClean.Fg
+			bg = scheme.vcsStatusClean.Bg
+			fg = scheme.vcsStatusClean.Fg
 		} else {
-			bg = r.Ctx.Conf.ColorScheme.StatusDirty.Bg
-			fg = r.Ctx.Conf.ColorScheme.StatusDirty.Fg
+			bg = scheme.vcsStatusDirty.Bg
+			fg = scheme.vcsStatusDirty.Fg
 		}
 		r.powerlineArrowRender(preBg, bg, r.Spliter, sb)
 		r.powerlineRender(bg, fg, " "+r.Ctx.VCSInfo.RepoType+":"+r.Ctx.VCSInfo.Name, sb)

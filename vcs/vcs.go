@@ -19,8 +19,6 @@ const (
 type VCSInfo struct {
 	// git or "", "" means not a repo
 	RepoType string
-	// p4 client, git clone name
-	Workspace string
 	// git branch name, git commit id, hg bookmark
 	Name string
 	// git status, hg status

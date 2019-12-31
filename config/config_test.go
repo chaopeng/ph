@@ -24,12 +24,12 @@ func Test_readConfigFile(t *testing.T) {
 		t.Errorf("PathShorterns diff (-want, +got): %s", diff)
 	}
 
-	if c.Theme != "powerline" {
-		t.Errorf("theme = %s, wants powerline", c.Theme)
+	if c.Theme.Prompt != "powerline" {
+		t.Errorf("theme.prompt = %s, wants powerline", c.Theme.Prompt)
 	}
 
-	if c.ColorScheme.Time.Fg != "15" {
-		t.Errorf("ColorScheme.Time.Fg = %s, wants 15", c.ColorScheme.Time.Fg)
+	if c.Scheme["simple/time"].Fg != "15" {
+		t.Errorf("Scheme.Time.Fg = %s, wants 15", c.Scheme["simple/time"].Fg)
 	}
 }
 
@@ -37,11 +37,11 @@ func Test_defaultConfig(t *testing.T) {
 	c := &Config{}
 	c.defaultConfig()
 
-	if c.Theme != "powerline" {
-		t.Errorf("theme = %s, wants powerline", c.Theme)
+	if c.Theme.Prompt != "powerline" {
+		t.Errorf("theme.prompt = %s, wants powerline", c.Theme.Prompt)
 	}
 
-	if c.ColorScheme.Time.Fg != "15" {
-		t.Errorf("ColorScheme.Time.Fg = %s, wants 15", c.ColorScheme.Time.Fg)
+	if c.Scheme["simple/time"].Fg != "15" {
+		t.Errorf("Scheme.Time.Fg = %s, wants 15", c.Scheme["simple/time"].Fg)
 	}
 }

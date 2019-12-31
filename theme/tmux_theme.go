@@ -6,7 +6,7 @@ import (
 )
 
 func TmuxThemeRender(ctx *context.Context) {
-	switch ctx.Conf.Theme {
+	switch ctx.Conf.Theme.Tmux {
 	case "powerline":
 		tmuxPowerlineThemeRender(ctx)
 	}
