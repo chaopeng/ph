@@ -15,27 +15,63 @@ type Git struct {
 }
 
 func (s *Git) GetVcsInfo(path string, user *user.User, conf *config.Config) *vcs.VcsInfo {
-	return getGitInformation(path, user, conf)
+	return gitInformation(path, user, conf)
 }
 
-// shouldCallGitInformation getGitInformation is not cheap, we should avoid this in some case.
+// skip gitInformation is not cheap, we may want to avoid this in some case.
 // eg, chromium src.
-func shouldCallGitInformation(path string, user *user.User, conf *config.Config) bool {
-	if strings.HasPrefix(path, user.HomeDir) {
-		return true
-	}
-	for _, include := range conf.VCSIncludes {
-		if strings.HasPrefix(path, include) {
+func skip(path string, user *user.User, conf *config.Config) bool {
+	for _, exclude := range conf.VCSSkip {
+		if strings.HasPrefix(path, exclude) {
 			return true
 		}
 	}
 
-	return false
+	if strings.HasPrefix(path, user.HomeDir) {
+		return false
+	}
+
+	for _, include := range conf.VCSIncludes {
+		if strings.HasPrefix(path, include) {
+			return false
+		}
+	}
+
+	return true
 }
 
-// getGitInformation returns needed information from git
-func getGitInformation(path string, user *user.User, conf *config.Config) (info *vcs.VcsInfo) {
-	if !shouldCallGitInformation(path, user, conf) {
+func gitStatus(r *git.Repository) (int, error) {
+	w, err := r.Worktree()
+	if err != nil {
+		return vcs.StatusNone, err
+	}
+
+	st, err := w.Status()
+	if err != nil {
+		return vcs.StatusNone, err
+	}
+
+	res := vcs.StatusClean
+	for _, s := range st {
+		// untrack
+		if s.Worktree == git.Untracked {
+			res |= vcs.StatusUntrack
+		}
+		// unstage
+		if s.Worktree != s.Staging {
+			res |= vcs.StatusUnstage
+		}
+		// uncommit
+		if s.Staging != git.Unmodified {
+			res |= vcs.StatusUncommit
+		}
+	}
+
+	return res, nil
+}
+
+func gitInformation(path string, user *user.User, conf *config.Config) (info *vcs.VcsInfo) {
+	if skip(path, user, conf) {
 		return nil
 	}
 
@@ -46,7 +82,7 @@ func getGitInformation(path string, user *user.User, conf *config.Config) (info 
 
 	// This is a git repo.
 	info = &vcs.VcsInfo{}
-	info.Repo = "git"
+	info.RepoType = "git"
 
 	ref, err := r.Head()
 	if err != nil {
@@ -58,19 +94,13 @@ func getGitInformation(path string, user *user.User, conf *config.Config) (info 
 	} else {
 		info.Name = ref.Hash().String()[0:7]
 	}
+	info.Status = vcs.StatusNone
 
-	w, err := r.Worktree()
+	status, err := gitStatus(r)
 	if err != nil {
 		return
 	}
-	st, err := w.Status()
-	if err != nil {
-		return
-	}
-	info.Status = vcs.StatusDirty
-	if st.IsClean() {
-		info.Status = vcs.StatusClean
-	}
 
+	info.Status = status
 	return
 }

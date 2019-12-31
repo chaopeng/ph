@@ -7,21 +7,28 @@ import (
 	"github.com/chaopeng/ph/config"
 )
 
-type VcsStatus int
-
 const (
-	StatusNone VcsStatus = iota
-	StatusClean
-	StatusDirty
+	// don't have status or don't care status.
+	StatusNone     = -1
+	StatusClean    = 0
+	StatusUntrack  = 1
+	StatusUnstage  = 1 << 1
+	StatusUncommit = 1 << 2
 )
 
 type VcsInfo struct {
 	// git or "", "" means not a repo
-	Repo string
-	// git branch name or git commit id
+	RepoType string
+	// p4 client, git clone name
+	Workspace string
+	// git branch name, git commit id, hg bookmark
 	Name string
-	// git status
-	Status VcsStatus
+	// git status, hg status
+	Status int
+}
+
+func (s *VcsInfo) StatusDirty() bool {
+	return s.Status > 0
 }
 
 type VCS interface {
