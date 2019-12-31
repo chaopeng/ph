@@ -5,7 +5,7 @@ go 1.12
 require (
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/gliderlabs/ssh v0.1.4 // indirect
-	github.com/google/go-cmp v0.3.0 // indirect
+	github.com/google/go-cmp v0.3.1
 	github.com/kr/pty v1.1.4 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b

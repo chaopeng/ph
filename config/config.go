@@ -29,11 +29,10 @@ type Scheme struct {
 }
 
 type Config struct {
-	VCSSkip       []string          `yaml:"VCSSkip"`
-	VCSIncludes   []string          `yaml:"VCSIncludes"`
-	PathShorterns map[string]string `yaml:"PathShorterns"`
-	Theme         string            `yaml:"Theme"`
-	ColorScheme   Scheme            `yaml:"Scheme"`
+	VCS           map[string][]string `yaml:"VCS"`
+	PathShorterns map[string]string   `yaml:"PathShorterns"`
+	Theme         string              `yaml:"Theme"`
+	ColorScheme   Scheme              `yaml:"Scheme"`
 }
 
 func ReadConfig() *Config {
@@ -50,17 +49,21 @@ func ReadConfig() *Config {
 		return conf
 	}
 
-	b, err := ioutil.ReadFile(dotFile)
+	readConfigFile(dotFile, conf)
+
+	return conf
+}
+
+func readConfigFile(path string, conf *Config) {
+	b, err := ioutil.ReadFile(path)
 	if err != nil {
-		return conf
+		return
 	}
 
 	err = yaml.Unmarshal(b, conf)
 	if err != nil {
 		log.Fatalln("yaml.Unmarshal failed")
 	}
-
-	return conf
 }
 
 func setDefaultValue(field *string, defaultValue string) {

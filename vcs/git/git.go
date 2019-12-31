@@ -11,6 +11,11 @@ import (
 	"gopkg.in/src-d/go-git.v4"
 )
 
+const (
+	gitSkip       = "git_skip"
+	gitStatusSkip = "git_status_skip"
+)
+
 type Git struct {
 }
 
@@ -18,26 +23,16 @@ func (s *Git) GetVCSInfo(path string, user *user.User, conf *config.Config) *vcs
 	return gitInformation(path, user, conf)
 }
 
-// skip gitInformation is not cheap, we may want to avoid this in some case.
-// eg, chromium src.
-func skip(path string, user *user.User, conf *config.Config) bool {
-	for _, exclude := range conf.VCSSkip {
+// skip gitInformation or gitStatus, git gitInformation is not cheap,
+// we may want to avoid this in some case, eg. Chromium.
+func skip(key, path string, user *user.User, conf *config.Config) bool {
+	for _, exclude := range conf.VCS[key] {
 		if strings.HasPrefix(path, exclude) {
 			return true
 		}
 	}
 
-	if strings.HasPrefix(path, user.HomeDir) {
-		return false
-	}
-
-	for _, include := range conf.VCSIncludes {
-		if strings.HasPrefix(path, include) {
-			return false
-		}
-	}
-
-	return true
+	return false
 }
 
 func gitStatus(r *git.Repository) (int, error) {
@@ -71,7 +66,7 @@ func gitStatus(r *git.Repository) (int, error) {
 }
 
 func gitInformation(path string, user *user.User, conf *config.Config) (info *vcs.VCSInfo) {
-	if skip(path, user, conf) {
+	if skip(gitSkip, path, user, conf) {
 		return nil
 	}
 
@@ -95,6 +90,10 @@ func gitInformation(path string, user *user.User, conf *config.Config) (info *vc
 		info.Name = ref.Hash().String()[0:7]
 	}
 	info.Status = vcs.StatusNone
+
+	if skip(gitStatusSkip, path, user, conf) {
+		return
+	}
 
 	status, err := gitStatus(r)
 	if err != nil {
