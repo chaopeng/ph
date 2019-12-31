@@ -14,7 +14,7 @@ import (
 type Git struct {
 }
 
-func (s *Git) GetVcsInfo(path string, user *user.User, conf *config.Config) *vcs.VcsInfo {
+func (s *Git) GetVCSInfo(path string, user *user.User, conf *config.Config) *vcs.VCSInfo {
 	return gitInformation(path, user, conf)
 }
 
@@ -70,7 +70,7 @@ func gitStatus(r *git.Repository) (int, error) {
 	return res, nil
 }
 
-func gitInformation(path string, user *user.User, conf *config.Config) (info *vcs.VcsInfo) {
+func gitInformation(path string, user *user.User, conf *config.Config) (info *vcs.VCSInfo) {
 	if skip(path, user, conf) {
 		return nil
 	}
@@ -81,7 +81,7 @@ func gitInformation(path string, user *user.User, conf *config.Config) (info *vc
 	}
 
 	// This is a git repo.
-	info = &vcs.VcsInfo{}
+	info = &vcs.VCSInfo{}
 	info.RepoType = "git"
 
 	ref, err := r.Head()

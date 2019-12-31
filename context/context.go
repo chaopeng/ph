@@ -28,7 +28,7 @@ type Context struct {
 	PathInfo *PathInfo
 	User     *user.User
 	Conf     *config.Config
-	VcsInfo  *vcs.VcsInfo
+	VCSInfo  *vcs.VCSInfo
 }
 
 func CreateContext() *Context {
@@ -103,9 +103,9 @@ func (c *Context) ReadCompleteInfo() {
 	}
 
 	if c.pwd != "" {
-		c.VcsInfo = vcs.GetVcsInfo(vs, c.pwd, c.User, c.Conf)
+		c.VCSInfo = vcs.GetVCSInfo(vs, c.pwd, c.User, c.Conf)
 	} else {
-		c.VcsInfo = &vcs.VcsInfo{}
+		c.VCSInfo = &vcs.VCSInfo{}
 	}
 
 	c.Os = os.Getenv("PH_OS")

@@ -16,7 +16,7 @@ const (
 	StatusUncommit = 1 << 2
 )
 
-type VcsInfo struct {
+type VCSInfo struct {
 	// git or "", "" means not a repo
 	RepoType string
 	// p4 client, git clone name
@@ -27,21 +27,21 @@ type VcsInfo struct {
 	Status int
 }
 
-func (s *VcsInfo) StatusDirty() bool {
+func (s *VCSInfo) StatusDirty() bool {
 	return s.Status > 0
 }
 
 type VCS interface {
-	GetVcsInfo(path string, user *user.User, conf *config.Config) *VcsInfo
+	GetVCSInfo(path string, user *user.User, conf *config.Config) *VCSInfo
 }
 
-func GetVcsInfo(vs []VCS, path string, user *user.User, conf *config.Config) *VcsInfo {
+func GetVCSInfo(vs []VCS, path string, user *user.User, conf *config.Config) *VCSInfo {
 	for _, v := range vs {
-		res := v.GetVcsInfo(path, user, conf)
+		res := v.GetVCSInfo(path, user, conf)
 		if res != nil {
 			return res
 		}
 	}
 
-	return &VcsInfo{}
+	return &VCSInfo{}
 }

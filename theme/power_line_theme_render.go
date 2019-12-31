@@ -116,13 +116,13 @@ func (r *PowerlineThemeRender) Render() string {
 	r.powerlineRender(bg, r.Ctx.Conf.ColorScheme.Pwd.Fg, r.Ctx.PathInfo.BaseDir+" ", sb)
 
 	// vcs
-	if r.Ctx.VcsInfo.RepoType != "" {
+	if r.Ctx.VCSInfo.RepoType != "" {
 		preBg = bg
 		fg := ""
-		if r.Ctx.VcsInfo.Status == vcs.StatusNone {
+		if r.Ctx.VCSInfo.Status == vcs.StatusNone {
 			bg = r.Ctx.Conf.ColorScheme.StatusNone.Bg
 			fg = r.Ctx.Conf.ColorScheme.StatusNone.Fg
-		} else if r.Ctx.VcsInfo.Status == vcs.StatusClean {
+		} else if r.Ctx.VCSInfo.Status == vcs.StatusClean {
 			bg = r.Ctx.Conf.ColorScheme.StatusClean.Bg
 			fg = r.Ctx.Conf.ColorScheme.StatusClean.Fg
 		} else {
@@ -130,9 +130,9 @@ func (r *PowerlineThemeRender) Render() string {
 			fg = r.Ctx.Conf.ColorScheme.StatusDirty.Fg
 		}
 		r.powerlineArrowRender(preBg, bg, r.Spliter, sb)
-		r.powerlineRender(bg, fg, " "+r.Ctx.VcsInfo.RepoType+":"+r.Ctx.VcsInfo.Name, sb)
+		r.powerlineRender(bg, fg, " "+r.Ctx.VCSInfo.RepoType+":"+r.Ctx.VCSInfo.Name, sb)
 
-		if r.Ctx.VcsInfo.StatusDirty() {
+		if r.Ctx.VCSInfo.StatusDirty() {
 			r.powerlineRender(bg, fg, "*", sb)
 		}
 		r.powerlineRender(bg, bg, " ", sb)
