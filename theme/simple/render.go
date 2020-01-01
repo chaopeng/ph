@@ -13,22 +13,22 @@ import (
 	"github.com/mgutz/ansi"
 )
 
-type SimpleTheme struct{}
+type Theme struct{}
 
-type simpleScheme struct {
+type scheme struct {
 	time config.Color
 	good config.Color
 	bad  config.Color
 }
 
-// Render simple theme: last status >
-func (s *SimpleTheme) Render(place string, lastStatus string, ctx *context.Context) string {
+// Render simple theme: timestamp >
+func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) string {
 	if place == theme.Tmux {
 		log.Println("simple theme does not support tmux")
 		return ""
 	}
 
-	scheme := simpleScheme{
+	scheme := scheme{
 		time: ctx.Conf.Scheme["simple/time"],
 		good: ctx.Conf.Scheme["simple/good"],
 		bad:  ctx.Conf.Scheme["simple/bad"],

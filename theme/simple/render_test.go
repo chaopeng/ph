@@ -25,7 +25,7 @@ func TestRender(t *testing.T) {
 			},
 		},
 	}
-	s := SimpleTheme{}
+	s := Theme{}
 	timeStr := time.Now().Format("2006-01-02 15:04:05")
 
 	got := s.Render(theme.Prompt, "0", ctx)

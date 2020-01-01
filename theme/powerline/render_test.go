@@ -157,7 +157,7 @@ func TestRender(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			ctx := testContext(tc)
-			p := PowerlineTheme{}
+			p := Theme{}
 			pGot := p.Render(theme.Prompt, tc.status, ctx)
 			if pGot != tc.wantPrompt {
 				t.Errorf("prompt = %s, wants %s", pGot, tc.wantPrompt)

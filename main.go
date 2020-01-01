@@ -15,8 +15,8 @@ import (
 // ph prompt $last_status, returns prompt string
 // ph tmux $pwd_path, return tmux status left string
 func main() {
-	theme.RegisterTheme("powerline", &powerline.PowerlineTheme{})
-	theme.RegisterTheme("simple", &simple.SimpleTheme{})
+	theme.RegisterTheme("powerline", &powerline.Theme{})
+	theme.RegisterTheme("simple", &simple.Theme{})
 
 	args := os.Args[1:]
 	if len(args) < 1 {

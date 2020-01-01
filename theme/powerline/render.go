@@ -20,9 +20,9 @@ const (
 	nfRightArrow = "\ue0b0"
 )
 
-type PowerlineTheme struct{}
+type Theme struct{}
 
-func (s *PowerlineTheme) Render(place string, lastStatus string, ctx *context.Context) string {
+func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) string {
 	ctx.ReadCompleteInfo()
 	var in input
 	if place == theme.Tmux {
@@ -112,7 +112,7 @@ func (in *input) powerlineArrowRender(preBg string, bg string, symbol string, sb
 	sb.WriteString(symbol)
 }
 
-type powerlineScheme struct {
+type scheme struct {
 	status         config.Color
 	ssh            config.Color
 	os             config.Color
@@ -126,7 +126,7 @@ type powerlineScheme struct {
 
 // last status > ssh > os > short_pwd > vcs > branch/client > clean >
 func render(in input) string {
-	scheme := powerlineScheme{
+	scheme := scheme{
 		status:         in.ctx.Conf.Scheme["power/status"],
 		ssh:            in.ctx.Conf.Scheme["power/ssh"],
 		os:             in.ctx.Conf.Scheme["power/os"],
