@@ -147,10 +147,10 @@ func TestRender(t *testing.T) {
 			name:       "danger path",
 			ssh:        false,
 			status:     "0",
-			pathDanger: false,
+			pathDanger: true,
 			vcsStatus:  vcs.StatusClean,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;2m[1;38;5;238;48;5;2m git:br-1[1;38;5;2;48;5;2m [0m[38;5;2m[0m ",
-			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
+			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;124m[1;38;5;252;48;5;124m /path/a/[1;38;5;15;48;5;124mb [38;5;124;48;5;2m[1;38;5;238;48;5;2m git:br-1[1;38;5;2;48;5;2m [0m[38;5;2m[0m ",
+			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour124]#[fg=colour252]#[bg=colour124] /path/a/#[fg=colour15]#[bg=colour124]b #[fg=colour124]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
 		},
 	}
 
