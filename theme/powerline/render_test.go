@@ -73,10 +73,15 @@ func testContext(tc testcase) *context.Context {
 		BaseDir:        "b",
 		DangerZone:     tc.pathDanger,
 	}
-	ctx.VCSInfo = &vcs.VCSInfo{
-		RepoType: "git",
-		Name:     "br-1",
-		Status:   tc.vcsStatus,
+	// no vcs info
+	if tc.vcsStatus == -2 {
+		ctx.VCSInfo = &vcs.VCSInfo{}
+	} else {
+		ctx.VCSInfo = &vcs.VCSInfo{
+			RepoType: "git",
+			Name:     "br-1",
+			Status:   tc.vcsStatus,
+		}
 	}
 
 	return ctx
@@ -94,13 +99,31 @@ func TestRender(t *testing.T) {
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
 		},
 		{
-			name:       "vcs not clean",
+			name:       "no vcs info",
+			ssh:        false,
+			status:     "0",
+			pathDanger: false,
+			vcsStatus:  -2,
+			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [0m[38;5;240m[0m ",
+			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=default]",
+		},
+		{
+			name:       "vcs status not clean",
 			ssh:        false,
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusUncommit,
 			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;1m[1;38;5;15;48;5;1m git:br-1[1;38;5;15;48;5;1m*[1;38;5;1;48;5;1m [0m[38;5;1m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour1]#[fg=colour15]#[bg=colour1] git:br-1#[fg=colour15]#[bg=colour1]*#[fg=colour1]#[bg=colour1] #[fg=colour1]#[bg=default]",
+		},
+		{
+			name:       "vcs status not none",
+			ssh:        false,
+			status:     "0",
+			pathDanger: false,
+			vcsStatus:  vcs.StatusNone,
+			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;3m[1;38;5;238;48;5;3m git:br-1[1;38;5;3;48;5;3m [0m[38;5;3m[0m ",
+			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour3]#[fg=colour238]#[bg=colour3] git:br-1#[fg=colour3]#[bg=colour3] #[fg=colour3]#[bg=default]",
 		},
 		{
 			name:       "in ssh",
