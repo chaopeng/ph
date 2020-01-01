@@ -122,6 +122,43 @@ func (conf *Config) defaultConfig() {
 			Fg: "15",
 			Bg: "1",
 		},
+		// simpleass
+		"simpleass/text": Color{
+			Fg: "15",
+		},
+		"simpleass/good": Color{
+			Fg: "15",
+		},
+		"simpleass/bad": Color{
+			Fg: "1",
+		},
+		"simpleass/ssh": Color{
+			Fg: "11",
+		},
+		"simpleass/os": Color{
+			Fg: "130",
+		},
+		"simpleass/pre_pwd": Color{
+			Fg: "2",
+		},
+		"simpleass/pwd": Color{
+			Fg: "10",
+		},
+		"simpleass/danger_pre_pwd": Color{
+			Fg: "161",
+		},
+		"simpleass/danger_pwd": Color{
+			Fg: "196",
+		},
+		"simpleass/vcs_type": Color{
+			Fg: "6",
+		},
+		"simpleass/vcs_name": Color{
+			Fg: "5",
+		},
+		"simpleass/vcs_status": Color{
+			Fg: "12",
+		},
 	}
 
 	if conf.Scheme == nil {

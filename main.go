@@ -10,6 +10,7 @@ import (
 	"github.com/chaopeng/ph/theme"
 	"github.com/chaopeng/ph/theme/powerline"
 	"github.com/chaopeng/ph/theme/simple"
+	"github.com/chaopeng/ph/theme/simpleass"
 )
 
 // ph prompt $last_status, returns prompt string
@@ -17,6 +18,7 @@ import (
 func main() {
 	theme.RegisterTheme("powerline", &powerline.Theme{})
 	theme.RegisterTheme("simple", &simple.Theme{})
+	theme.RegisterTheme("simpleass", &simpleass.Theme{})
 
 	args := os.Args[1:]
 	if len(args) < 1 {
