@@ -13,6 +13,7 @@ import (
 )
 
 type PathInfo struct {
+	Orignal        string
 	ShorternPrefix string
 	BaseDir        string
 	DangerZone     bool
@@ -45,7 +46,7 @@ func CreateContext() *Context {
 }
 
 func createPathInfo(path0 string, user *user.User, conf *config.Config) *PathInfo {
-	pathInfo := &PathInfo{}
+	pathInfo := &PathInfo{Orignal: path0}
 	homeDir := user.HomeDir
 	path := strings.Replace(path0, homeDir, "~", 1)
 
