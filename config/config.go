@@ -14,8 +14,9 @@ type Color struct {
 }
 
 type ColorTheme struct {
-	Tmux   string `yaml:"tmux"`
-	Prompt string `yaml:"prompt"`
+	Tmux         string `yaml:"tmux"`
+	Prompt       string `yaml:"prompt"`
+	PromptInTmux string `yaml:"prompt_in_tmux"`
 }
 
 type Config struct {
@@ -73,6 +74,7 @@ func (conf *Config) defaultConfig() {
 
 	setDefaultValue(&conf.Theme.Tmux, "powerline")
 	setDefaultValue(&conf.Theme.Prompt, "powerline")
+	setDefaultValue(&conf.Theme.PromptInTmux, "simple")
 
 	defaultScheme := map[string]Color{
 		// simple theme

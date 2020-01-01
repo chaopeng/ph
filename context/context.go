@@ -29,6 +29,7 @@ type Context struct {
 	User     *user.User
 	Conf     *config.Config
 	VCSInfo  *vcs.VCSInfo
+	complete bool
 }
 
 func CreateContext() *Context {
@@ -97,6 +98,11 @@ func (c *Context) ReadPathInfo() {
 }
 
 func (c *Context) ReadCompleteInfo() {
+	if c.complete {
+		return
+	}
+	c.complete = true
+
 	c.ReadPathInfo()
 	vs := []vcs.VCS{
 		&git.Git{},
