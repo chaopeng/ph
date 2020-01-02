@@ -20,6 +20,7 @@ type ColorTheme struct {
 }
 
 type Config struct {
+	HostName      string                      `yaml:"hostname"`
 	VCS           map[string][]string         `yaml:"vcs"`
 	PathShorterns map[string]string           `yaml:"path_shortern"`
 	Theme         ColorTheme                  `yaml:"theme"`

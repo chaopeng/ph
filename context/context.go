@@ -111,7 +111,7 @@ func (c *Context) ReadCompleteInfo() {
 		c.VCSInfo = &vcs.VCSInfo{}
 	}
 
-	c.OS = os.Getenv("PH_OS")
+	c.OS = c.Conf.HostName
 	if len(c.OS) == 0 {
 		c.OS = runtime.GOOS
 	}
