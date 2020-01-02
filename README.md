@@ -1,5 +1,7 @@
 # Prompt Helper
 
+<img src="https://github.com/chaopeng/ph/workflows/Go%20Build%20&%20Test/badge.svg">
+
 ## Background
 
 I am very not good at shell script. Early this year, I moved my daily development shell from zsh to fish. It took me times to move my prompt setting. So why not do it on Go. It also a good small project to learn a new language.
