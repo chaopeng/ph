@@ -38,7 +38,7 @@ func CreateContext() *Context {
 
 	c.Conf = config.ReadConfig()
 
-	if os.Getenv("TMUX") != "" {
+	if len(os.Getenv("TMUX")) > 0 {
 		c.Tmux = true
 	}
 
@@ -107,7 +107,7 @@ func (c *Context) ReadCompleteInfo() {
 
 	c.ReadPathInfo()
 
-	if c.pwd != "" {
+	if len(c.pwd) > 0 {
 		c.VCSInfo = vcs.GetVCSInfo(c.pwd, c.User, c.Conf)
 	} else {
 		c.VCSInfo = &vcs.VCSInfo{}
@@ -118,7 +118,7 @@ func (c *Context) ReadCompleteInfo() {
 		c.OS = runtime.GOOS
 	}
 
-	if os.Getenv("SSH_CLIENT") != "" {
+	if len(os.Getenv("SSH_CLIENT")) > 0 {
 		c.SSH = true
 	}
 }

@@ -220,7 +220,7 @@ func render(in input) string {
 	in.powerlineRender(bg, scheme.pwd.Fg, in.ctx.PathInfo.BaseDir+" ", sb)
 
 	// vcs
-	if in.ctx.VCSInfo.RepoType != "" {
+	if len(in.ctx.VCSInfo.RepoType) > 0 {
 		preBg = bg
 		fg := ""
 		if in.ctx.VCSInfo.Status == vcs.StatusNone {
