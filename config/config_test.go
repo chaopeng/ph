@@ -18,6 +18,7 @@ func Test_readConfigFile(t *testing.T) {
 	wantVCS := map[string]interface{}{
 		"git_skip":        []interface{}{"/path/a"},
 		"git_status_skip": []interface{}{"/path/b", "/path/c"},
+		"hg_enable":       true,
 	}
 	if diff := cmp.Diff(wantVCS, c.VCS); len(diff) != 0 {
 		t.Errorf("VCS diff (-want, +got): %s", diff)

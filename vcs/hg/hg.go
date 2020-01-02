@@ -12,6 +12,10 @@ import (
 	"github.com/chaopeng/ph/vcs"
 )
 
+const (
+	hg_enable = "hg_enable"
+)
+
 type HG struct {
 }
 
@@ -70,7 +74,26 @@ func CurrentBookmark() (string, error) {
 	return "", nil
 }
 
+func enabled(conf *config.Config) bool {
+	v, ok := conf.VCS[hg_enable]
+	if !ok {
+		return false
+	}
+
+	b, ok := v.(bool)
+	if !ok {
+		log.Println("conf.VCS[hg_enable] type incorrect")
+		return false
+	}
+
+	return b
+}
+
 func (s *HG) GetVCSInfo(path string, user *user.User, conf *config.Config) *vcs.VCSInfo {
+	if !enabled(conf) {
+		return nil
+	}
+
 	st, err := Status()
 	if err != nil {
 		return nil
