@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"os/user"
+	"regexp"
 	"runtime"
 	"strings"
 
@@ -50,7 +51,8 @@ func createPathInfo(path0 string, user *user.User, conf *config.Config) *PathInf
 	path := strings.Replace(path0, homeDir, "~", 1)
 
 	for p, short := range conf.PathShorterns {
-		path = strings.Replace(path, p, "$"+short, 1)
+		r := regexp.MustCompile(p)
+		path = r.ReplaceAllString(path, "@"+short)
 	}
 
 	// Consider the path is not user's directory if we don't have shortern setting.

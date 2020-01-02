@@ -59,7 +59,17 @@ func Test_createPathInfo(t *testing.T) {
 			path: "/path/long/b",
 			want: &PathInfo{
 				Orignal:        "/path/long/b",
-				ShorternPrefix: "$short/",
+				ShorternPrefix: "@short1/",
+				BaseDir:        "b",
+				DangerZone:     false,
+			},
+		},
+		{
+			name: "regex shortern",
+			path: "/path/a/long/b",
+			want: &PathInfo{
+				Orignal:        "/path/a/long/b",
+				ShorternPrefix: "@short2/",
 				BaseDir:        "b",
 				DangerZone:     false,
 			},
@@ -68,7 +78,8 @@ func Test_createPathInfo(t *testing.T) {
 
 	conf := &config.Config{
 		PathShorterns: map[string]string{
-			"/path/long": "short",
+			"/path/long":        "short1",
+			"^/path/[^/]*/long": "short2",
 		},
 	}
 

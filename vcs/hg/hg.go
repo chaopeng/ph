@@ -70,7 +70,7 @@ func CurrentBookmark() (string, error) {
 		if len(s) == 0 {
 			continue
 		}
-		s = strings.TrimLeft(s, " ")
+		s = strings.TrimSpace(s)
 		if s[0:1] == "*" {
 			return strings.SplitN(s[2:], " ", 2)[0], nil
 		}
