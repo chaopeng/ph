@@ -18,7 +18,7 @@ tmux:<br>
 ## Install
 
 1. Install [nerd fonts](https://github.com/ryanoasis/nerd-fonts), I am using `Hack Nerf fonts`, not all fonts works good on my environment.
-2. run `go build main.go`. Rename, move and add to path.
+2. run `./install.sh`. Please ensure ~/go/bin in PATH.
 3. (Optional) You can custom your prompt color scheme. Copy or link `ph.example.conf` to ~/.ph.
 
 ### Setup for fish
@@ -81,7 +81,7 @@ function set_status -e fish_prompt
   end
 
   set -l tmuxstatus ($HOME/bin/ph tmux)
-  tmx2 set -g status-left "$tmuxstatus"
+  tmux set -g status-left "$tmuxstatus" 1
 end
 ```
 
@@ -89,9 +89,38 @@ end
 
 ```
 /path/to/ph prompt 1
-/path/to/ph tmux
+/path/to/ph tmux 1
 /path/to/ph shortpath
 ```
+
+## Configure
+
+ph has default config. But still allow you to customize. You only need to add the fill you want to change.
+
+```yaml
+vcs:
+ # want to make ph faster, tell ph to skip git.
+ git_skip:
+  - /not/path/for/code
+
+# Path shortern, home already included
+path_shortern:
+ ^/long/path: short
+
+# Change theme
+theme:
+ prompt: simpleass
+
+scheme:
+ # only change color of os field for simpleass theme
+ simpleass:
+  os:
+   fg: 15
+```
+
+## Integration
+
+You can use ph as library and buid your own ph. You can build your theme and vcs support and then register it like `cmd/cmd.go`.
 
 ## License
 
