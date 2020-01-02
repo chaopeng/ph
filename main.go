@@ -4,5 +4,6 @@ package main
 import "github.com/chaopeng/ph/cmd"
 
 func main() {
+	cmd.Setup()
 	cmd.Run()
 }

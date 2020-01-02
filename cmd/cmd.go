@@ -15,7 +15,7 @@ import (
 	"github.com/chaopeng/ph/vcs/git"
 )
 
-func init() {
+func Setup() {
 	theme.RegisterTheme("powerline", &powerline.Theme{})
 	theme.RegisterTheme("simple", &simple.Theme{})
 	theme.RegisterTheme("simpleass", &simpleass.Theme{})

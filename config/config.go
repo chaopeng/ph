@@ -21,7 +21,7 @@ type ColorTheme struct {
 
 type Config struct {
 	HostName      string                      `yaml:"hostname"`
-	VCS           map[string][]string         `yaml:"vcs"`
+	VCS           map[string]interface{}      `yaml:"vcs"`
 	PathShorterns map[string]string           `yaml:"path_shortern"`
 	Theme         ColorTheme                  `yaml:"theme"`
 	Scheme        map[string]map[string]Color `yaml:"scheme"`
@@ -74,7 +74,7 @@ func setDefaultValue(field *string, defaultValue string) {
 
 func (conf *Config) defaultConfig() {
 	if conf.VCS == nil {
-		conf.VCS = map[string][]string{}
+		conf.VCS = map[string]interface{}{}
 	}
 
 	if conf.PathShorterns == nil {

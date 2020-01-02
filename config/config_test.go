@@ -15,9 +15,9 @@ func Test_readConfigFile(t *testing.T) {
 		t.Errorf("HostName = %s, wants %s", c.HostName, wantHostName)
 	}
 
-	wantVCS := map[string][]string{
-		"git_skip":        []string{"/path/a"},
-		"git_status_skip": []string{"/path/b", "/path/c"},
+	wantVCS := map[string]interface{}{
+		"git_skip":        []interface{}{"/path/a"},
+		"git_status_skip": []interface{}{"/path/b", "/path/c"},
 	}
 	if diff := cmp.Diff(wantVCS, c.VCS); len(diff) != 0 {
 		t.Errorf("VCS diff (-want, +got): %s", diff)

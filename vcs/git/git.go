@@ -2,6 +2,8 @@
 package git
 
 import (
+	"fmt"
+	"log"
 	"os/user"
 	"strings"
 
@@ -23,10 +25,30 @@ func (s *Git) GetVCSInfo(path string, user *user.User, conf *config.Config) *vcs
 	return gitInformation(path, user, conf)
 }
 
+func vcsSetting(key string, conf *config.Config) []string {
+	v, ok := conf.VCS[key]
+	if !ok {
+		return nil
+	}
+
+	s, ok := v.([]interface{})
+	if !ok {
+		log.Printf("conf.VCS[%s] type incorrect", key)
+		return nil
+	}
+
+	res := make([]string, len(s))
+	for i, v := range s {
+		s[i] = fmt.Sprint(v)
+	}
+
+	return res
+}
+
 // skip gitInformation or gitStatus, git gitInformation is not cheap,
 // we may want to avoid this in some case, eg. Chromium.
 func skip(key, path string, user *user.User, conf *config.Config) bool {
-	for _, exclude := range conf.VCS[key] {
+	for _, exclude := range vcsSetting(key, conf) {
 		if strings.HasPrefix(path, exclude) {
 			return true
 		}
