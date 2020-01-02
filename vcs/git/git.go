@@ -39,7 +39,7 @@ func vcsSetting(key string, conf *config.Config) []string {
 
 	res := make([]string, len(s))
 	for i, v := range s {
-		s[i] = fmt.Sprint(v)
+		res[i] = fmt.Sprint(v)
 	}
 
 	return res
