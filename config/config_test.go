@@ -55,3 +55,16 @@ func Test_defaultConfig(t *testing.T) {
 		t.Errorf("Scheme.fake.a.Fg = %s, wants 1", c.Scheme["fake"]["a"].Fg)
 	}
 }
+
+func Test_defaultConfigNotOverwriteExistingConfig(t *testing.T) {
+	RegisterDefaultScheme("simple", map[string]Color{
+		"time": Color{Fg: "1"},
+	})
+
+	c := &Config{}
+	readConfigFile("../ph.example.conf", c)
+
+	if c.Scheme["simple"]["time"].Fg != "15" {
+		t.Errorf("Scheme.simple.Time.Fg = %s, wants 15", c.Scheme["simple"]["time"].Fg)
+	}
+}

@@ -94,7 +94,9 @@ func (conf *Config) defaultConfig() {
 			conf.Scheme[theme] = scheme
 		} else {
 			for k, v := range scheme {
-				conf.Scheme[theme][k] = v
+				if _, ok := conf.Scheme[theme][k]; !ok {
+					conf.Scheme[theme][k] = v
+				}
 			}
 		}
 	}
