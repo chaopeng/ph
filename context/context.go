@@ -20,9 +20,9 @@ type PathInfo struct {
 }
 
 type Context struct {
-	Os string
+	OS string
 	// is in ssh environment
-	Ssh bool
+	SSH bool
 	// is in tmux
 	Tmux     bool
 	pwd      string
@@ -115,12 +115,12 @@ func (c *Context) ReadCompleteInfo() {
 		c.VCSInfo = &vcs.VCSInfo{}
 	}
 
-	c.Os = os.Getenv("PH_OS")
-	if len(c.Os) == 0 {
-		c.Os = runtime.GOOS
+	c.OS = os.Getenv("PH_OS")
+	if len(c.OS) == 0 {
+		c.OS = runtime.GOOS
 	}
 
 	if os.Getenv("SSH_CLIENT") != "" {
-		c.Ssh = true
+		c.SSH = true
 	}
 }

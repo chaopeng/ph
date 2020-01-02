@@ -112,7 +112,7 @@ func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) st
 	sb := &strings.Builder{}
 
 	// $SSH
-	if ctx.Ssh {
+	if ctx.SSH {
 		// via
 		sb.WriteString(ansi.Color("via ", scheme.text.Fg))
 		// ssh
@@ -123,8 +123,8 @@ func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) st
 	sb.WriteString(ansi.Color("at ", scheme.text.Fg))
 
 	// $OS
-	os := ctx.Os
-	if ctx.Os == "darwin" {
+	os := ctx.OS
+	if ctx.OS == "darwin" {
 		os = "mac"
 	}
 	os = strings.ToLower(os)

@@ -193,7 +193,7 @@ func render(in input) string {
 		}
 	}
 
-	if in.needSSH && in.ctx.Ssh {
+	if in.needSSH && in.ctx.SSH {
 		in.powerlineArrowRender(bg, scheme.ssh.Bg, in.spliter, sb)
 		bg = scheme.ssh.Bg
 		in.powerlineRender(bg, scheme.ssh.Fg, " "+nfLock+" ", sb)
@@ -203,10 +203,10 @@ func render(in input) string {
 	in.powerlineArrowRender(bg, scheme.os.Bg, in.spliter, sb)
 	bg = scheme.os.Bg
 
-	if in.ctx.Os == "darwin" {
+	if in.ctx.OS == "darwin" {
 		in.powerlineRender(bg, scheme.os.Fg, " Mac ", sb)
 	} else {
-		in.powerlineRender(bg, scheme.os.Fg, " "+in.ctx.Os+" ", sb)
+		in.powerlineRender(bg, scheme.os.Fg, " "+in.ctx.OS+" ", sb)
 	}
 
 	// short pwd

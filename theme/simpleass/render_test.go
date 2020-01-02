@@ -102,8 +102,8 @@ type testcase struct {
 func testContext(tc testcase) *context.Context {
 	ctx := contextWithDefaultConfig()
 	ctx.ReadCompleteInfo()
-	ctx.Os = "Linux"
-	ctx.Ssh = tc.ssh
+	ctx.OS = "Linux"
+	ctx.SSH = tc.ssh
 	ctx.Tmux = true
 	ctx.PathInfo = &context.PathInfo{
 		ShorternPrefix: "/path/a/",
