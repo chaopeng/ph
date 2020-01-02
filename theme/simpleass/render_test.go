@@ -46,42 +46,44 @@ func Test_buildVCSStatusStr(t *testing.T) {
 func contextWithDefaultConfig() *context.Context {
 	return &context.Context{
 		Conf: &config.Config{
-			Scheme: map[string]config.Color{
-				"simpleass/text": config.Color{
-					Fg: "15",
-				},
-				"simpleass/good": config.Color{
-					Fg: "15",
-				},
-				"simpleass/bad": config.Color{
-					Fg: "1",
-				},
-				"simpleass/ssh": config.Color{
-					Fg: "11",
-				},
-				"simpleass/os": config.Color{
-					Fg: "130",
-				},
-				"simpleass/pre_pwd": config.Color{
-					Fg: "2",
-				},
-				"simpleass/pwd": config.Color{
-					Fg: "10",
-				},
-				"simpleass/danger_pre_pwd": config.Color{
-					Fg: "161",
-				},
-				"simpleass/danger_pwd": config.Color{
-					Fg: "196",
-				},
-				"simpleass/vcs_type": config.Color{
-					Fg: "6",
-				},
-				"simpleass/vcs_name": config.Color{
-					Fg: "5",
-				},
-				"simpleass/vcs_status": config.Color{
-					Fg: "12",
+			Scheme: map[string]map[string]config.Color{
+				ThemeName: map[string]config.Color{
+					"text": config.Color{
+						Fg: "15",
+					},
+					"good": config.Color{
+						Fg: "15",
+					},
+					"bad": config.Color{
+						Fg: "1",
+					},
+					"ssh": config.Color{
+						Fg: "11",
+					},
+					"os": config.Color{
+						Fg: "130",
+					},
+					"pre_pwd": config.Color{
+						Fg: "2",
+					},
+					"pwd": config.Color{
+						Fg: "10",
+					},
+					"danger_pre_pwd": config.Color{
+						Fg: "161",
+					},
+					"danger_pwd": config.Color{
+						Fg: "196",
+					},
+					"vcs_type": config.Color{
+						Fg: "6",
+					},
+					"vcs_name": config.Color{
+						Fg: "5",
+					},
+					"vcs_status": config.Color{
+						Fg: "12",
+					},
 				},
 			},
 		},

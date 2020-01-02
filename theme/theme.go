@@ -22,10 +22,12 @@ var (
 
 type ThemeRender interface {
 	Render(place string, lastStatus string, ctx *context.Context) string
+	Register()
 }
 
 func RegisterTheme(name string, t ThemeRender) {
 	themes[name] = t
+	t.Register()
 }
 
 func Render(place string, lastStatus string, ctx *context.Context) {

@@ -1,8 +1,9 @@
 package config
 
 import (
-	"github.com/google/go-cmp/cmp"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func Test_readConfigFile(t *testing.T) {
@@ -28,12 +29,16 @@ func Test_readConfigFile(t *testing.T) {
 		t.Errorf("theme.prompt = %s, wants powerline", c.Theme.Prompt)
 	}
 
-	if c.Scheme["simple/time"].Fg != "15" {
-		t.Errorf("Scheme.Time.Fg = %s, wants 15", c.Scheme["simple/time"].Fg)
+	if c.Scheme["simple"]["time"].Fg != "15" {
+		t.Errorf("Scheme.simple.Time.Fg = %s, wants 15", c.Scheme["simple"]["time"].Fg)
 	}
 }
 
 func Test_defaultConfig(t *testing.T) {
+	RegisterDefaultScheme("fake", map[string]Color{
+		"a": Color{Fg: "1"},
+	})
+
 	c := &Config{}
 	c.defaultConfig()
 
@@ -41,7 +46,7 @@ func Test_defaultConfig(t *testing.T) {
 		t.Errorf("theme.prompt = %s, wants powerline", c.Theme.Prompt)
 	}
 
-	if c.Scheme["simple/time"].Fg != "15" {
-		t.Errorf("Scheme.Time.Fg = %s, wants 15", c.Scheme["simple/time"].Fg)
+	if c.Scheme["fake"]["a"].Fg != "1" {
+		t.Errorf("Scheme.fake.a.Fg = %s, wants 1", c.Scheme["fake"]["a"].Fg)
 	}
 }

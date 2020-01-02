@@ -13,12 +13,55 @@ import (
 )
 
 const (
+	ThemeName = "simpleass"
+
 	charStatus      = "↪"
 	charVCSClean    = "✓"
 	charVCSNone     = "*"
 	charVCSUntrack  = "?"
 	charVCSUnstage  = "!"
 	charVCSUncommit = "+"
+)
+
+var (
+	defaultScheme = map[string]config.Color{
+		"text": config.Color{
+			Fg: "15",
+		},
+		"good": config.Color{
+			Fg: "15",
+		},
+		"bad": config.Color{
+			Fg: "1",
+		},
+		"ssh": config.Color{
+			Fg: "11",
+		},
+		"os": config.Color{
+			Fg: "130",
+		},
+		"pre_pwd": config.Color{
+			Fg: "2",
+		},
+		"pwd": config.Color{
+			Fg: "10",
+		},
+		"danger_pre_pwd": config.Color{
+			Fg: "161",
+		},
+		"danger_pwd": config.Color{
+			Fg: "196",
+		},
+		"vcs_type": config.Color{
+			Fg: "6",
+		},
+		"vcs_name": config.Color{
+			Fg: "5",
+		},
+		"vcs_status": config.Color{
+			Fg: "12",
+		},
+	}
 )
 
 type scheme struct {
@@ -38,6 +81,10 @@ type scheme struct {
 
 type Theme struct{}
 
+func (s *Theme) Register() {
+	config.RegisterDefaultScheme(ThemeName, defaultScheme)
+}
+
 // Render simpleass theme: SSH at OS in PATH on VCS_NAME [VCS_STATUS] \n↪
 func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) string {
 	if place == theme.Tmux {
@@ -48,18 +95,18 @@ func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) st
 	ctx.ReadCompleteInfo()
 
 	scheme := scheme{
-		text:         ctx.Conf.Scheme["simpleass/text"],
-		good:         ctx.Conf.Scheme["simpleass/good"],
-		bad:          ctx.Conf.Scheme["simpleass/bad"],
-		ssh:          ctx.Conf.Scheme["simpleass/ssh"],
-		os:           ctx.Conf.Scheme["simpleass/os"],
-		prePWD:       ctx.Conf.Scheme["simpleass/pre_pwd"],
-		pwd:          ctx.Conf.Scheme["simpleass/pwd"],
-		dangerPrePWD: ctx.Conf.Scheme["simpleass/danger_pre_pwd"],
-		dangerPWD:    ctx.Conf.Scheme["simpleass/danger_pwd"],
-		vcsType:      ctx.Conf.Scheme["simpleass/vcs_type"],
-		vcsName:      ctx.Conf.Scheme["simpleass/vcs_name"],
-		vcsStatus:    ctx.Conf.Scheme["simpleass/vcs_status"],
+		text:         ctx.Conf.GetColor(ThemeName, "text"),
+		good:         ctx.Conf.GetColor(ThemeName, "good"),
+		bad:          ctx.Conf.GetColor(ThemeName, "bad"),
+		ssh:          ctx.Conf.GetColor(ThemeName, "ssh"),
+		os:           ctx.Conf.GetColor(ThemeName, "os"),
+		prePWD:       ctx.Conf.GetColor(ThemeName, "pre_pwd"),
+		pwd:          ctx.Conf.GetColor(ThemeName, "pwd"),
+		dangerPrePWD: ctx.Conf.GetColor(ThemeName, "danger_pre_pwd"),
+		dangerPWD:    ctx.Conf.GetColor(ThemeName, "danger_pwd"),
+		vcsType:      ctx.Conf.GetColor(ThemeName, "vcs_type"),
+		vcsName:      ctx.Conf.GetColor(ThemeName, "vcs_name"),
+		vcsStatus:    ctx.Conf.GetColor(ThemeName, "vcs_status"),
 	}
 
 	sb := &strings.Builder{}

@@ -20,10 +20,18 @@ type ColorTheme struct {
 }
 
 type Config struct {
-	VCS           map[string][]string `yaml:"vcs"`
-	PathShorterns map[string]string   `yaml:"path_shortern"`
-	Theme         ColorTheme          `yaml:"theme"`
-	Scheme        map[string]Color    `yaml:"scheme"`
+	VCS           map[string][]string         `yaml:"vcs"`
+	PathShorterns map[string]string           `yaml:"path_shortern"`
+	Theme         ColorTheme                  `yaml:"theme"`
+	Scheme        map[string]map[string]Color `yaml:"scheme"`
+}
+
+var (
+	defaultScheme = map[string]map[string]Color{}
+)
+
+func RegisterDefaultScheme(theme string, scheme map[string]Color) {
+	defaultScheme[theme] = scheme
 }
 
 func ReadConfig() *Config {
@@ -76,98 +84,21 @@ func (conf *Config) defaultConfig() {
 	setDefaultValue(&conf.Theme.Prompt, "powerline")
 	setDefaultValue(&conf.Theme.PromptInTmux, "simple")
 
-	defaultScheme := map[string]Color{
-		// simple theme
-		"simple/time": Color{
-			Fg: "15",
-		},
-		"simple/good": Color{
-			Fg: "2",
-		},
-		"simple/bad": Color{
-			Fg: "1",
-		},
-		// powerline theme
-		"power/status": Color{
-			Fg: "1",
-			Bg: "15",
-		},
-		"power/ssh": Color{
-			Fg: "252",
-			Bg: "240",
-		},
-		"power/os": Color{
-			Fg: "15",
-			Bg: "33",
-		},
-		"power/pwd": Color{
-			Fg: "15",
-			Bg: "240",
-		},
-		"power/pre_pwd": Color{
-			Fg: "252",
-		},
-		"power/danger_zone": Color{
-			Bg: "124",
-		},
-		"power/vcs_status_none": Color{
-			Fg: "238",
-			Bg: "3",
-		},
-		"power/vcs_status_clean": Color{
-			Fg: "238",
-			Bg: "2",
-		},
-		"power/vcs_status_dirty": Color{
-			Fg: "15",
-			Bg: "1",
-		},
-		// simpleass
-		"simpleass/text": Color{
-			Fg: "15",
-		},
-		"simpleass/good": Color{
-			Fg: "15",
-		},
-		"simpleass/bad": Color{
-			Fg: "1",
-		},
-		"simpleass/ssh": Color{
-			Fg: "11",
-		},
-		"simpleass/os": Color{
-			Fg: "130",
-		},
-		"simpleass/pre_pwd": Color{
-			Fg: "2",
-		},
-		"simpleass/pwd": Color{
-			Fg: "10",
-		},
-		"simpleass/danger_pre_pwd": Color{
-			Fg: "161",
-		},
-		"simpleass/danger_pwd": Color{
-			Fg: "196",
-		},
-		"simpleass/vcs_type": Color{
-			Fg: "6",
-		},
-		"simpleass/vcs_name": Color{
-			Fg: "5",
-		},
-		"simpleass/vcs_status": Color{
-			Fg: "12",
-		},
-	}
-
 	if conf.Scheme == nil {
-		conf.Scheme = map[string]Color{}
+		conf.Scheme = map[string]map[string]Color{}
 	}
 
-	for k, v := range defaultScheme {
-		if _, ok := conf.Scheme[k]; !ok {
-			conf.Scheme[k] = v
+	for theme, scheme := range defaultScheme {
+		if _, ok := conf.Scheme[theme]; !ok {
+			conf.Scheme[theme] = scheme
+		} else {
+			for k, v := range scheme {
+				conf.Scheme[theme][k] = v
+			}
 		}
 	}
+}
+
+func (c *Config) GetColor(theme, key string) Color {
+	return c.Scheme[theme][key]
 }

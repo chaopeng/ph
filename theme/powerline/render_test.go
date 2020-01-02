@@ -12,40 +12,42 @@ import (
 func contextWithDefaultConfig() *context.Context {
 	return &context.Context{
 		Conf: &config.Config{
-			Scheme: map[string]config.Color{
-				"power/status": config.Color{
-					Fg: "1",
-					Bg: "15",
-				},
-				"power/ssh": config.Color{
-					Fg: "252",
-					Bg: "240",
-				},
-				"power/os": config.Color{
-					Fg: "15",
-					Bg: "33",
-				},
-				"power/pwd": config.Color{
-					Fg: "15",
-					Bg: "240",
-				},
-				"power/pre_pwd": config.Color{
-					Fg: "252",
-				},
-				"power/danger_zone": config.Color{
-					Bg: "124",
-				},
-				"power/vcs_status_none": config.Color{
-					Fg: "238",
-					Bg: "3",
-				},
-				"power/vcs_status_clean": config.Color{
-					Fg: "238",
-					Bg: "2",
-				},
-				"power/vcs_status_dirty": config.Color{
-					Fg: "15",
-					Bg: "1",
+			Scheme: map[string]map[string]config.Color{
+				ThemeName: map[string]config.Color{
+					"status": config.Color{
+						Fg: "1",
+						Bg: "15",
+					},
+					"ssh": config.Color{
+						Fg: "252",
+						Bg: "240",
+					},
+					"os": config.Color{
+						Fg: "15",
+						Bg: "33",
+					},
+					"pwd": config.Color{
+						Fg: "15",
+						Bg: "240",
+					},
+					"pre_pwd": config.Color{
+						Fg: "252",
+					},
+					"danger_zone": config.Color{
+						Bg: "124",
+					},
+					"vcs_status_none": config.Color{
+						Fg: "238",
+						Bg: "3",
+					},
+					"vcs_status_clean": config.Color{
+						Fg: "238",
+						Bg: "2",
+					},
+					"vcs_status_dirty": config.Color{
+						Fg: "15",
+						Bg: "1",
+					},
 				},
 			},
 		},

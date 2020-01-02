@@ -13,12 +13,34 @@ import (
 	"github.com/mgutz/ansi"
 )
 
+const (
+	ThemeName = "simple"
+)
+
+var (
+	defaultScheme = map[string]config.Color{
+		"time": config.Color{
+			Fg: "15",
+		},
+		"good": config.Color{
+			Fg: "2",
+		},
+		"bad": config.Color{
+			Fg: "1",
+		},
+	}
+)
+
 type Theme struct{}
 
 type scheme struct {
 	time config.Color
 	good config.Color
 	bad  config.Color
+}
+
+func (s *Theme) Register() {
+	config.RegisterDefaultScheme(ThemeName, defaultScheme)
 }
 
 // Render simple theme: timestamp >
@@ -29,9 +51,9 @@ func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) st
 	}
 
 	scheme := scheme{
-		time: ctx.Conf.Scheme["simple/time"],
-		good: ctx.Conf.Scheme["simple/good"],
-		bad:  ctx.Conf.Scheme["simple/bad"],
+		time: ctx.Conf.GetColor(ThemeName, "time"),
+		good: ctx.Conf.GetColor(ThemeName, "good"),
+		bad:  ctx.Conf.GetColor(ThemeName, "bad"),
 	}
 
 	sb := &strings.Builder{}

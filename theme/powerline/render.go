@@ -12,15 +12,60 @@ import (
 	"github.com/mgutz/ansi"
 )
 
-// Nerf Fonts
 const (
+	ThemeName = "powerline"
+
+	// Nerf Fonts
 	nfLock       = "\uf840"
 	nfSlash      = "\ue0bc" // /
 	nfBackSlash  = "\ue0b8" // \
 	nfRightArrow = "\ue0b0"
 )
 
+var (
+	defaultScheme = map[string]config.Color{
+		"status": config.Color{
+			Fg: "1",
+			Bg: "15",
+		},
+		"ssh": config.Color{
+			Fg: "252",
+			Bg: "240",
+		},
+		"os": config.Color{
+			Fg: "15",
+			Bg: "33",
+		},
+		"pwd": config.Color{
+			Fg: "15",
+			Bg: "240",
+		},
+		"pre_pwd": config.Color{
+			Fg: "252",
+		},
+		"danger_zone": config.Color{
+			Bg: "124",
+		},
+		"vcs_status_none": config.Color{
+			Fg: "238",
+			Bg: "3",
+		},
+		"vcs_status_clean": config.Color{
+			Fg: "238",
+			Bg: "2",
+		},
+		"vcs_status_dirty": config.Color{
+			Fg: "15",
+			Bg: "1",
+		},
+	}
+)
+
 type Theme struct{}
+
+func (s *Theme) Register() {
+	config.RegisterDefaultScheme(ThemeName, defaultScheme)
+}
 
 func (s *Theme) Render(place string, lastStatus string, ctx *context.Context) string {
 	ctx.ReadCompleteInfo()
@@ -127,15 +172,15 @@ type scheme struct {
 // last status > ssh > os > short_pwd > vcs > branch/client > clean >
 func render(in input) string {
 	scheme := scheme{
-		status:         in.ctx.Conf.Scheme["power/status"],
-		ssh:            in.ctx.Conf.Scheme["power/ssh"],
-		os:             in.ctx.Conf.Scheme["power/os"],
-		pwd:            in.ctx.Conf.Scheme["power/pwd"],
-		prePWD:         in.ctx.Conf.Scheme["power/pre_pwd"],
-		dangerZone:     in.ctx.Conf.Scheme["power/danger_zone"],
-		vcsStatusNone:  in.ctx.Conf.Scheme["power/vcs_status_none"],
-		vcsStatusClean: in.ctx.Conf.Scheme["power/vcs_status_clean"],
-		vcsStatusDirty: in.ctx.Conf.Scheme["power/vcs_status_dirty"],
+		status:         in.ctx.Conf.GetColor(ThemeName, "status"),
+		ssh:            in.ctx.Conf.GetColor(ThemeName, "ssh"),
+		os:             in.ctx.Conf.GetColor(ThemeName, "os"),
+		pwd:            in.ctx.Conf.GetColor(ThemeName, "pwd"),
+		prePWD:         in.ctx.Conf.GetColor(ThemeName, "pre_pwd"),
+		dangerZone:     in.ctx.Conf.GetColor(ThemeName, "danger_zone"),
+		vcsStatusNone:  in.ctx.Conf.GetColor(ThemeName, "vcs_status_none"),
+		vcsStatusClean: in.ctx.Conf.GetColor(ThemeName, "vcs_status_clean"),
+		vcsStatusDirty: in.ctx.Conf.GetColor(ThemeName, "vcs_status_dirty"),
 	}
 
 	sb := &strings.Builder{}

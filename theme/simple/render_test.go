@@ -12,15 +12,17 @@ import (
 func TestRender(t *testing.T) {
 	ctx := &context.Context{
 		Conf: &config.Config{
-			Scheme: map[string]config.Color{
-				"simple/time": config.Color{
-					Fg: "15",
-				},
-				"simple/good": config.Color{
-					Fg: "2",
-				},
-				"simple/bad": config.Color{
-					Fg: "1",
+			Scheme: map[string]map[string]config.Color{
+				ThemeName: map[string]config.Color{
+					"time": config.Color{
+						Fg: "15",
+					},
+					"good": config.Color{
+						Fg: "2",
+					},
+					"bad": config.Color{
+						Fg: "1",
+					},
 				},
 			},
 		},
