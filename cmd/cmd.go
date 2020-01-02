@@ -12,7 +12,6 @@ import (
 	"github.com/chaopeng/ph/theme/simple"
 	"github.com/chaopeng/ph/theme/simpleass"
 	"github.com/chaopeng/ph/vcs"
-	"github.com/chaopeng/ph/vcs/git"
 	"github.com/chaopeng/ph/vcs/hg"
 )
 
@@ -21,7 +20,7 @@ func Setup() {
 	theme.RegisterTheme(simple.ThemeName, &simple.Theme{})
 	theme.RegisterTheme(simpleass.ThemeName, &simpleass.Theme{})
 
-	vcs.RegisterVCS(&git.Git{})
+	// vcs.RegisterVCS(&git.Git{})
 	vcs.RegisterVCS(&hg.HG{})
 }
 

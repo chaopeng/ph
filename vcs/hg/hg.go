@@ -2,33 +2,25 @@
 package hg
 
 import (
+	"fmt"
 	"log"
-	"os/exec"
 	"os/user"
 	"strings"
 
 	"github.com/chaopeng/ph/config"
+	"github.com/chaopeng/ph/util"
 	"github.com/chaopeng/ph/vcs"
 )
 
 type HG struct {
 }
 
-func commandExec(command string, args ...string) (string, error) {
-	out, err := exec.Command(command, args...).Output()
-	if err != nil {
-		return "", err
-	}
-
-	return string(out), nil
-}
-
 // Status returns hg status to vcs status, error if it is not a hg repo.
 func Status() (int, error) {
 	// hg status, it is not a hg repo, if error.
-	status, err := commandExec("hg", "status")
-	if err != nil {
-		return vcs.StatusNone, nil
+	status, errmsg, exitCode := util.RunCommand("hg", "status")
+	if exitCode != 0 {
+		return vcs.StatusNone, fmt.Errorf(errmsg)
 	}
 
 	st := vcs.StatusClean
@@ -58,9 +50,9 @@ func Status() (int, error) {
 // CurrentBookmark returns current bookmark, returns "" if not in bookmark.
 func CurrentBookmark() (string, error) {
 	// hg bookmark
-	bookmarks, err := commandExec("hg", "bookmark")
-	if err != nil {
-		return "", err
+	bookmarks, errmsg, exitCode := util.RunCommand("hg", "bookmark")
+	if exitCode != 0 {
+		return "", fmt.Errorf(errmsg)
 	}
 
 	if len(bookmarks) == 0 {
