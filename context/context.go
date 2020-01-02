@@ -9,7 +9,6 @@ import (
 
 	"github.com/chaopeng/ph/config"
 	"github.com/chaopeng/ph/vcs"
-	"github.com/chaopeng/ph/vcs/git"
 )
 
 type PathInfo struct {
@@ -105,12 +104,9 @@ func (c *Context) ReadCompleteInfo() {
 	c.complete = true
 
 	c.ReadPathInfo()
-	vs := []vcs.VCS{
-		&git.Git{},
-	}
 
 	if c.pwd != "" {
-		c.VCSInfo = vcs.GetVCSInfo(vs, c.pwd, c.User, c.Conf)
+		c.VCSInfo = vcs.GetVCSInfo(c.pwd, c.User, c.Conf)
 	} else {
 		c.VCSInfo = &vcs.VCSInfo{}
 	}

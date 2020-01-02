@@ -16,6 +16,10 @@ const (
 	StatusUncommit = 1 << 2
 )
 
+var (
+	vcses = []VCS{}
+)
+
 type VCSInfo struct {
 	// git or "", "" means not a repo
 	RepoType string
@@ -29,12 +33,16 @@ func (s *VCSInfo) StatusDirty() bool {
 	return s.Status > 0
 }
 
+func RegisterVCS(v VCS) {
+	vcses = append(vcses, v)
+}
+
 type VCS interface {
 	GetVCSInfo(path string, user *user.User, conf *config.Config) *VCSInfo
 }
 
-func GetVCSInfo(vs []VCS, path string, user *user.User, conf *config.Config) *VCSInfo {
-	for _, v := range vs {
+func GetVCSInfo(path string, user *user.User, conf *config.Config) *VCSInfo {
+	for _, v := range vcses {
 		res := v.GetVCSInfo(path, user, conf)
 		if res != nil {
 			return res

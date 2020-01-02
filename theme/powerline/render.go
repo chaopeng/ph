@@ -204,7 +204,7 @@ func render(in input) string {
 	bg = scheme.os.Bg
 
 	if in.ctx.OS == "darwin" {
-		in.powerlineRender(bg, scheme.os.Fg, " Mac ", sb)
+		in.powerlineRender(bg, scheme.os.Fg, " mac ", sb)
 	} else {
 		in.powerlineRender(bg, scheme.os.Fg, " "+in.ctx.OS+" ", sb)
 	}
