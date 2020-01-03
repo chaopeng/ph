@@ -54,6 +54,13 @@ function fish_title
 end
 ```
 
+### Setup for zsh
+
+```zsh
+# in .zshrc
+export PROMPT="%(?.$(~/go/bin/ph prompt 0).$(~/go/bin/ph prompt 1))"
+```
+
 ### Setup for tmux
 
 I put prompt info on the left and the window list on the right of status bar.
@@ -74,7 +81,7 @@ set -g window-status-current-attr bold
 set -g window-status-format ' #[fg=colour15]#I.#W '
 ```
 
-Set status bar when receive fish_prompt event.
+In fish, set status bar when receive fish_prompt event.
 
 ```fish
 function set_status -e fish_prompt
@@ -86,6 +93,8 @@ function set_status -e fish_prompt
   tmux set -g status-left "$tmuxstatus" 1
 end
 ```
+
+In zsh, set status bar in precmd().
 
 ## Try it now
 
