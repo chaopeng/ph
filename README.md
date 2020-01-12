@@ -31,12 +31,12 @@ Put `ph` in function `fish_prompt`, `ph shortpath` maybe useful for window title
 ```fish
 function fish_prompt
   set -l last_status $status
-  $HOME/bin/ph prompt $last_status
+  $HOME/go/bin/ph prompt $last_status
 end
 
 function fish_title
   # short pwd
-  set p ($HOME/bin/ph shortpath)
+  set p ($HOME/go/bin/ph shortpath)
 
   # current running and OS
   if [ $_ = 'fish' ]
@@ -90,7 +90,7 @@ function set_status -e fish_prompt
     return
   end
 
-  set -l tmuxstatus ($HOME/bin/ph tmux)
+  set -l tmuxstatus ($HOME/go/bin/ph tmux)
   tmux set -g status-left "$tmuxstatus" 1
 end
 ```
