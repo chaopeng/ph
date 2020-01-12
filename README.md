@@ -19,8 +19,9 @@ tmux:<br>
 
 ## Install
 
+0. Install golang.
 1. Install [nerd fonts](https://github.com/ryanoasis/nerd-fonts), I am using `Hack Nerf fonts`, not all fonts works good on my environment.
-2. run `./install.sh`. Please ensure ~/go/bin in PATH.
+2. run `./install.sh` to install.
 3. (Optional) You can custom your prompt color scheme. Copy or link `ph.example.conf` to ~/.ph.
 
 ### Setup for fish
