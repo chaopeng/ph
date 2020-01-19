@@ -68,17 +68,20 @@ I put prompt info on the left and the window list on the right of status bar.
 
 ```
 # tmux.conf
+
+# theme
+# Set the background color dark grey
+set -g status-style bg=colour240
+
 # Show nothing on status left
 set -g status-left ''
 set -g status-left-length 80
 
 # Show nothing on status right
 set -g status-right ''
-
 set -g status-justify right
-set -g window-status-current-bg colour28
+set -g window-status-current-style bg=colour28,bold
 set -g window-status-current-format ' #[fg=colour15]#I.#W#F '
-set -g window-status-current-attr bold
 set -g window-status-format ' #[fg=colour15]#I.#W '
 ```
 
