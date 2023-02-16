@@ -97,7 +97,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusClean,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;2m[1;38;5;238;48;5;2m git:br-1[1;38;5;2;48;5;2m [0m[38;5;2m[0m ",
+			wantPrompt: "[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;240m[0;1;38;5;252;48;5;240m /path/a/[0;1;38;5;15;48;5;240mb [0;38;5;240;48;5;2m[0;1;38;5;238;48;5;2m git:br-1[0;1;38;5;2;48;5;2m [0m[0;38;5;2m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
 		},
 		{
@@ -106,7 +106,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  -2,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [0m[38;5;240m[0m ",
+			wantPrompt: "[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;240m[0;1;38;5;252;48;5;240m /path/a/[0;1;38;5;15;48;5;240mb [0m[0;38;5;240m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=default]",
 		},
 		{
@@ -115,7 +115,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusUncommit,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;1m[1;38;5;15;48;5;1m git:br-1[1;38;5;15;48;5;1m*[1;38;5;1;48;5;1m [0m[38;5;1m[0m ",
+			wantPrompt: "[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;240m[0;1;38;5;252;48;5;240m /path/a/[0;1;38;5;15;48;5;240mb [0;38;5;240;48;5;1m[0;1;38;5;15;48;5;1m git:br-1[0;1;38;5;15;48;5;1m*[0;1;38;5;1;48;5;1m [0m[0;38;5;1m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour1]#[fg=colour15]#[bg=colour1] git:br-1#[fg=colour15]#[bg=colour1]*#[fg=colour1]#[bg=colour1] #[fg=colour1]#[bg=default]",
 		},
 		{
@@ -124,7 +124,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusNone,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;3m[1;38;5;238;48;5;3m git:br-1[1;38;5;3;48;5;3m [0m[38;5;3m[0m ",
+			wantPrompt: "[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;240m[0;1;38;5;252;48;5;240m /path/a/[0;1;38;5;15;48;5;240mb [0;38;5;240;48;5;3m[0;1;38;5;238;48;5;3m git:br-1[0;1;38;5;3;48;5;3m [0m[0;38;5;3m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour3]#[fg=colour238]#[bg=colour3] git:br-1#[fg=colour3]#[bg=colour3] #[fg=colour3]#[bg=default]",
 		},
 		{
@@ -133,7 +133,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusClean,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;2m[1;38;5;238;48;5;2m git:br-1[1;38;5;2;48;5;2m [0m[38;5;2m[0m ",
+			wantPrompt: "[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;240m[0;1;38;5;252;48;5;240m /path/a/[0;1;38;5;15;48;5;240mb [0;38;5;240;48;5;2m[0;1;38;5;238;48;5;2m git:br-1[0;1;38;5;2;48;5;2m [0m[0;38;5;2m[0m ",
 			wantTmux: "#[fg=colour252]#[bg=colour240]  #[fg=colour240]#[bg=colour33]#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
 		},
 		{
@@ -142,7 +142,7 @@ func TestRender(t *testing.T) {
 			status:     "1",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusClean,
-			wantPrompt: "[1;38;5;1;48;5;15m ! [38;5;15;48;5;33m[1;38;5;15;48;5;33m Linux [38;5;33;48;5;240m[1;38;5;252;48;5;240m /path/a/[1;38;5;15;48;5;240mb [38;5;240;48;5;2m[1;38;5;238;48;5;2m git:br-1[1;38;5;2;48;5;2m [0m[38;5;2m[0m ",
+			wantPrompt: "[0;1;38;5;1;48;5;15m ! [0;38;5;15;48;5;33m[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;240m[0;1;38;5;252;48;5;240m /path/a/[0;1;38;5;15;48;5;240mb [0;38;5;240;48;5;2m[0;1;38;5;238;48;5;2m git:br-1[0;1;38;5;2;48;5;2m [0m[0;38;5;2m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour240]#[fg=colour252]#[bg=colour240] /path/a/#[fg=colour15]#[bg=colour240]b #[fg=colour240]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
 		},
 		{
@@ -151,7 +151,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: true,
 			vcsStatus:  vcs.StatusClean,
-			wantPrompt: "[1;38;5;15;48;5;33m Linux [38;5;33;48;5;124m[1;38;5;252;48;5;124m /path/a/[1;38;5;15;48;5;124mb [38;5;124;48;5;2m[1;38;5;238;48;5;2m git:br-1[1;38;5;2;48;5;2m [0m[38;5;2m[0m ",
+			wantPrompt: "[0;1;38;5;15;48;5;33m Linux [0;38;5;33;48;5;124m[0;1;38;5;252;48;5;124m /path/a/[0;1;38;5;15;48;5;124mb [0;38;5;124;48;5;2m[0;1;38;5;238;48;5;2m git:br-1[0;1;38;5;2;48;5;2m [0m[0;38;5;2m[0m ",
 			wantTmux: "#[fg=colour15]#[bg=colour33] Linux #[fg=colour33]#[bg=colour124]#[fg=colour252]#[bg=colour124] /path/a/#[fg=colour15]#[bg=colour124]b #[fg=colour124]#[bg=colour2]#[fg=colour238]#[bg=colour2] git:br-1#[fg=colour2]#[bg=colour2] #[fg=colour2]#[bg=default]",
 		},
 	}

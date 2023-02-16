@@ -132,7 +132,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusClean,
-			want: "[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;2m/path/a/[0m[1;38;5;10mb[0m[38;5;15m on [0m[1;38;5;6mgit [0m[1;38;5;5mbr-1 [0m[1;38;5;12m[✓][0m\n[1;38;5;15m↪[0m[0m [0m",
+			want: "[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;2m/path/a/[0m[0;1;38;5;10mb[0m[0;38;5;15m on [0m[0;1;38;5;6mgit [0m[0;1;38;5;5mbr-1 [0m[0;1;38;5;12m[✓][0m\n[0;1;38;5;15m↪[0m[0m [0m",
 		},
 		{
 			name:       "no vcs info",
@@ -140,7 +140,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  -2,
-			want: "[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;2m/path/a/[0m[1;38;5;10mb[0m\n[1;38;5;15m↪[0m[0m [0m",
+			want: "[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;2m/path/a/[0m[0;1;38;5;10mb[0m\n[0;1;38;5;15m↪[0m[0m [0m",
 		},
 		{
 			name:       "vcs status not clean",
@@ -148,7 +148,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusUncommit,
-			want: "[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;2m/path/a/[0m[1;38;5;10mb[0m[38;5;15m on [0m[1;38;5;6mgit [0m[1;38;5;5mbr-1 [0m[1;38;5;12m[+][0m\n[1;38;5;15m↪[0m[0m [0m",
+			want: "[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;2m/path/a/[0m[0;1;38;5;10mb[0m[0;38;5;15m on [0m[0;1;38;5;6mgit [0m[0;1;38;5;5mbr-1 [0m[0;1;38;5;12m[+][0m\n[0;1;38;5;15m↪[0m[0m [0m",
 		},
 		{
 			name:       "vcs status not none",
@@ -156,7 +156,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusNone,
-			want: "[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;2m/path/a/[0m[1;38;5;10mb[0m[38;5;15m on [0m[1;38;5;6mgit [0m[1;38;5;5mbr-1 [0m[1;38;5;12m[*][0m\n[1;38;5;15m↪[0m[0m [0m",
+			want: "[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;2m/path/a/[0m[0;1;38;5;10mb[0m[0;38;5;15m on [0m[0;1;38;5;6mgit [0m[0;1;38;5;5mbr-1 [0m[0;1;38;5;12m[*][0m\n[0;1;38;5;15m↪[0m[0m [0m",
 		},
 		{
 			name:       "in ssh",
@@ -164,7 +164,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusClean,
-			want: "[38;5;15mvia [0m[38;5;11mssh [0m[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;2m/path/a/[0m[1;38;5;10mb[0m[38;5;15m on [0m[1;38;5;6mgit [0m[1;38;5;5mbr-1 [0m[1;38;5;12m[✓][0m\n[1;38;5;15m↪[0m[0m [0m",
+			want: "[0;38;5;15mvia [0m[0;38;5;11mssh [0m[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;2m/path/a/[0m[0;1;38;5;10mb[0m[0;38;5;15m on [0m[0;1;38;5;6mgit [0m[0;1;38;5;5mbr-1 [0m[0;1;38;5;12m[✓][0m\n[0;1;38;5;15m↪[0m[0m [0m",
 		},
 		{
 			name:       "bad status",
@@ -172,7 +172,7 @@ func TestRender(t *testing.T) {
 			status:     "1",
 			pathDanger: false,
 			vcsStatus:  vcs.StatusClean,
-			want: "[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;2m/path/a/[0m[1;38;5;10mb[0m[38;5;15m on [0m[1;38;5;6mgit [0m[1;38;5;5mbr-1 [0m[1;38;5;12m[✓][0m\n[1;38;5;1m↪[0m[0m [0m",
+			want: "[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;2m/path/a/[0m[0;1;38;5;10mb[0m[0;38;5;15m on [0m[0;1;38;5;6mgit [0m[0;1;38;5;5mbr-1 [0m[0;1;38;5;12m[✓][0m\n[0;1;38;5;1m↪[0m[0m [0m",
 		},
 		{
 			name:       "danger path",
@@ -180,7 +180,7 @@ func TestRender(t *testing.T) {
 			status:     "0",
 			pathDanger: true,
 			vcsStatus:  vcs.StatusClean,
-			want: "[38;5;15mat [0m[1;38;5;130mlinux[0m[38;5;15m in [0m[1;38;5;161m/path/a/[0m[1;38;5;196mb[0m[38;5;15m on [0m[1;38;5;6mgit [0m[1;38;5;5mbr-1 [0m[1;38;5;12m[✓][0m\n[1;38;5;15m↪[0m[0m [0m",
+			want: "[0;38;5;15mat [0m[0;1;38;5;130mlinux[0m[0;38;5;15m in [0m[0;1;38;5;161m/path/a/[0m[0;1;38;5;196mb[0m[0;38;5;15m on [0m[0;1;38;5;6mgit [0m[0;1;38;5;5mbr-1 [0m[0;1;38;5;12m[✓][0m\n[0;1;38;5;15m↪[0m[0m [0m",
 		},
 	}
 

@@ -31,13 +31,13 @@ func TestRender(t *testing.T) {
 	timeStr := time.Now().Format("2006-01-02 15:04:05")
 
 	got := s.Render(theme.Prompt, "0", ctx)
-	want := "[1;38;5;15m" + timeStr + " [0m[1;38;5;2m>[0m [0m"
+	want := "[0;1;38;5;15m" + timeStr + " [0m[0;1;38;5;2m>[0m [0m"
 	if got != want {
 		t.Errorf("s.Render(theme.Prompt, 0, ctx) = %s, wants %s", got, want)
 	}
 
 	got = s.Render(theme.Prompt, "1", ctx)
-	want = "[1;38;5;15m" + timeStr + " [0m[1;38;5;1m>[0m [0m"
+	want = "[0;1;38;5;15m" + timeStr + " [0m[0;1;38;5;1m>[0m [0m"
 	if got != want {
 		t.Errorf("s.Render(theme.Prompt, 1, ctx) = %s, wants %s", got, want)
 	}
